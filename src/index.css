@@ -1,0 +1,203 @@
+
+/* @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap'); */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --main-bg-color: #efeef1;
+  --bg-petrol: linear-gradient(45deg, #fbfbfb 40%, #e9e7be 100%);
+  --bg-diesel: linear-gradient(45deg, #fbfbfb 40%, #BCAAA4 100%);
+  --bg-cng: linear-gradient(45deg, #fbfbfb 40%, #E0E0E0 100%);
+  --bg-ev: linear-gradient(45deg, #fbfbfb 40%, #80D0C7 100%);
+  --bg-default: linear-gradient(45deg, #f5fafe 40%, #dee7ff 100%);
+
+  --bg-banner: linear-gradient(20deg, #e1e1, #fff);
+
+  /* deffe4 */
+  --color-petrol: #b0aa30;
+  --color-diesel: #a05b44;
+  --color-cng: #555557;
+  --color-ev: #2ba140;
+  --color-default: #2a2f2a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* font-family: "Cormorant Garamond", serif; */
+  /* font-family: 'Stardom', sans-serif; */
+  font-family: "IBM Plex Serif", serif;
+  /* font-family: 'Bonny', serif; */
+}
+
+body {
+  overflow-x: hidden;
+  /* background: var(--main-bg-color); */
+  background: #fff;
+  scroll-behavior: smooth;
+}
+
+.bg-allproducts{
+      background: linear-gradient(0deg, black, #000000b0);
+}
+
+.font-sec {
+  /* font-family: "Montserrat", sans-serif; */
+  font-family: 'Bonny', serif;
+  /* font-family: 'Stardom', sans-serif; */
+}
+
+/* You can also add a transition class to .tyreText if you prefer CSS-only tweaks */
+.tyreText {
+  transition: opacity 0s ease-in;
+}
+
+.linearcard-bg {
+  background: linear-gradient(220deg, #3c43734a, transparent);
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+canvas {
+  touch-action: none;
+}
+
+.screen-max-width {
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  position: relative;
+  max-width: 1120px;
+}
+
+.shadow-inner-custom {
+  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 1) -3px -3px 6px 1px inset;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    /* BG */
+    --main-bg: #f7f7f7;
+    --soft-bg: #f1f1f1;
+    --dark-bg: #181f2d;
+
+    /* TEXT */
+    --main-color: #111111;
+    --soft-color: #272727;
+    --dark-color: #000000;
+
+    /* Shadow */
+    --box-shadow1: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+/* @media only screen and (min-width: 640px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #e4e4e44d;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  }
+
+  ::-webkit-scrollbar-thumb:window-inactive {
+    background: #e4e4e44d;
+  }
+} */
+
+@layer utilities {
+  .res_navright {
+    @apply fixed w-1/2 h-screen z-[3] top-0 right-0 flex flex-col justify-center gap-8 p-4 transform translate-x-full bg-transparent text-white transition-all duration-300 ease-in opacity-0 invisible pointer-events-none;
+  }
+
+  .active_res {
+    @apply translate-x-0 opacity-100 visible pointer-events-auto backdrop-brightness-[0.3];
+  }
+
+}
