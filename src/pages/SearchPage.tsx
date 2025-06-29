@@ -327,7 +327,7 @@ const SearchPage = () => {
                         className="w-full h-32  overflow-hidden rounded-xl object-contain transition-all duration-700 group-hover:scale-110"
                       />
                       
-                      {/* Decorative gradient overlay */}
+                     
                       <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-orange-500/10 to-orange-400/40 pointer-events-none"></div>
                     </div>
 
