@@ -25,13 +25,26 @@
   --color-default: #2a2f2a;
 }
 
+@font-face {
+  font-family: Coromorant;
+  src: url(/public/assets/fonts/CormorantGaramond-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: Montserrat;
+  src: url(/public/assets/fonts/Montserrat-VariableFont_wght.ttf);
+}
+@font-face {
+  font-family: Doren;
+  src: url(/public/assets/fonts/doren-perfume-serif.ttf);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   /* font-family: "Cormorant Garamond", serif; */
   /* font-family: 'Stardom', sans-serif; */
-  font-family: "IBM Plex Serif", serif;
+ 
   /* font-family: 'Bonny', serif; */
 }
 

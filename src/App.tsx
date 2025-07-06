@@ -84,10 +84,7 @@ function App() {
           path: "/search/:productid",
           element: <ProductDetails  />
         }
-        // {
-        //   path: "/search/:carid/:carname",
-        //   element: <CarDetails />,
-        // },
+      
       ],
     },
   ]);

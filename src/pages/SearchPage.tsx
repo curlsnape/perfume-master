@@ -302,7 +302,7 @@ const SearchPage = () => {
               return (
                 <Link to={`/search/${perfume.id}`} key={perfume.id}>
                   <div
-                    className="bg-white border border-gray-200 rounded-xl hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 group"
+                    className="bg-white font-[montserrat] border border-gray-200 rounded-xl hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 group"
                     onMouseEnter={() => setHoveredProduct(perfume.id)}
                     onMouseLeave={() => setHoveredProduct(null)}
                   >

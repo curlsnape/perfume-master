@@ -116,14 +116,14 @@ const Main = () => {
   return (
     <div
       ref={bannerRef}
-      className="relative min-h-screen main-banner bg-white transition-colors duration-1000 overflow-hidden"
+      className="relative min-h-screen main-banner bg-black text-white transition-colors duration-1000 overflow-hidden"
     >
       <div className="w-full md:w-[95%] my-0 mx-auto p-0 md:p-4 flex">
         <div className="w-full lg:w-[80%] xl:w-[70%] p-4 md:p-0">
           <div className="relative">
             <h2
               ref={headingRef}
-              className="my-4 md:my-0 text-[3.5rem] md:text-[5rem] lg:text-[5.5rem] xl:text-[6.5rem] leading-[1] opacity-0"
+              className="my-4 md:my-0 font-[Coromorant] text-[3.5rem] md:text-[5rem] lg:text-[5.5rem] xl:text-[6.5rem] leading-[1] opacity-0"
             >
               Awaken Your Senses with Every Note
             </h2>
@@ -148,13 +148,13 @@ const Main = () => {
           </div>
           <p
             ref={paragraph1Ref}
-            className="w-[90%] md:w-fit text-base md:text-xl lg:text-[1.3rem] xl:text-2xl p-1 bg-[#f5eadc] opacity-0"
+            className="w-[90%] md:w-fit text-base md:text-xl lg:text-[1.3rem] xl:text-2xl p-1 text-white bg-zinc-700 opacity-0"
           >
             Discover luxury fragrances that define your personality.
           </p>
           <p
             ref={paragraph2Ref}
-            className="my-4 font-sec p-2 text-base md:text-xl lg:text-[1.3rem] xl:text-2xl text-justify opacity-0"
+            className="my-4 font-sec p-2 font-[montserrat] text-base md:text-xl lg:text-[1.3rem] xl:text-2xl text-justify opacity-0"
           >
             Indulge in our carefully curated collection of perfumes crafted to
             captivate and inspire. Whether you're drawn to bold, seductive notes

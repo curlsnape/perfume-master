@@ -203,26 +203,26 @@ const Navbar = () => {
   }, [location.pathname]); // When route changes
 
   return (
-    <div className="navbar relative z-10">
-      <div className="w-full md:w-[95%] p-4 my-0 mx-auto flex items-center justify-between gap-2 ">
+    <div className="navbar fixed w-full font-[poppins] z-10">
+      <div className="w-full md:w-[95%] p-3 my-2 mx-auto flex items-center justify-between gap-2 backdrop-blur-md bg-white/5  rounded-full shadow-lg">
         {/* Desktop menu */}
-        <div className="hidden md:flex gap-5">
+        <div className="hidden font-light text-sm md:flex gap-5">
           <img src="/assets/images/black logo.png" alt="" className="w-[4rem] lg:w-[6rem]"/>
           <Link
             to=""
-            className="text-black hover:text-violet-600 transition-all duration-300"
+            className="text-zinc-600 metal-3d hover:text-violet-300 transition-all duration-300"
           >
             Home
           </Link>
           <Link
             to="/search"
-            className="text-black hover:text-violet-600 transition-all duration-300"
+            className="text-zinc-600 metal-3d hover:text-violet-300 transition-all duration-300"
           >
             Products
           </Link>
           <Link
-            to="#"
-            className="text-black hover:text-violet-600 transition-all duration-300"
+            to="/about"
+            className="text-zinc-600 metal-3d hover:text-violet-300 transition-all duration-300"
           >
             About
           </Link>
@@ -231,19 +231,19 @@ const Navbar = () => {
         {/* Hamburger icon for mobile */}
         <div className="md:hidden">
           <button onClick={() => setMenuOpen(!menuOpen)}>
-            <HiOutlineMenuAlt3 className="text-2xl" />
+            <HiOutlineMenuAlt3 className="text-2xl text-wblack" />
           </button>
         </div>
 
         {/* Mobile slide-in menu */}
         <div
-          className={`fixed top-0 left-0 h-full bg-white z-50 w-1/2 shadow-md p-6 transform transition-transform duration-300 ease-in-out ${
+          className={`fixed top-0 left-0 h-full bg-white/20 backdrop-blur-md z-50 w-1/2 shadow-lg p-6 transform transition-transform duration-300 ease-in-out ${
             menuOpen ? "translate-x-0" : "-translate-x-full"
-          } md:hidden`}
+          } md:hidden rounded-r-2xl`}
         >
           <button
             onClick={() => setMenuOpen(false)}
-            className=" text-right w-full font-bold"
+            className=" text-right w-full font-bold text-wblack"
           >
             ✕
           </button>
@@ -253,26 +253,26 @@ const Navbar = () => {
               <Link
                 to=""
                 onClick={() => setMenuOpen(false)}
-                className="text-black hover:text-violet-600"
+                className="text-wblack hover:text-violet-300"
               >
                 Home
               </Link>
               <Link
                 to="/search"
                 onClick={() => setMenuOpen(false)}
-                className="text-black hover:text-violet-600"
+                className="text-wblack hover:text-violet-300"
               >
                 Products
               </Link>
               <Link
                 to="#"
                 onClick={() => setMenuOpen(false)}
-                className="text-black hover:text-violet-600"
+                className="text-wblack hover:text-violet-300"
               >
                 About
               </Link>
             </div>
-            <small>
+            <small className="text-wblack">
               Design By <br /> Ashish Singh
             </small>
           </nav>
@@ -280,8 +280,8 @@ const Navbar = () => {
 
         <div className="flex items-center gap-2">
           <Link to="">
-            <div className="p-0.5 flex items-center justify-center border border-gray-100 rounded-md">
-              <div ref={iconRef} className="text-[1.7rem] text-zinc-700 p-1">
+            <div className="p-0.5 flex text-white font-light items-center justify-center border border-white/20 rounded-xl backdrop-blur-sm bg-white/10">
+              <div ref={iconRef} className="text-[1.7rem] text-wblack p-1">
                 {icons[iconIndex]}
               </div>
             </div>
@@ -300,7 +300,7 @@ const Navbar = () => {
             <DialogTrigger asChild>
               <Button
                 variant="outline"
-                className="bg-zinc-100 py-2 lg:w-80 w-auto"
+                className="bg-white/30 backdrop-blur-sm border-white/30 py-2 lg:w-80 w-auto rounded-xl hover:bg-white/40 transition-all duration-300"
                 onClick={() => setDialogOpen(true)}
               >
                 Search Here
@@ -362,7 +362,7 @@ const Navbar = () => {
           <Sheet>
             <SheetTrigger>
               <div className="relative">
-                <FaOpencart className="text-[2rem] p-1.5 rounded-xl hover:bg-gray-200 hover:text-black cursor-pointer" />
+                <FaOpencart className="text-[2rem] p-1.5 rounded-xl hover:bg-white/30 hover:backdrop-blur-sm text-white hover:text-white cursor-pointer transition-all duration-300" />
                 {cartCount > 0 && (
                   <span className="absolute -top-2 -right-2 text-xs bg-red-600 text-white w-5 h-5 flex items-center justify-center rounded-full">
                     {cartCount}
@@ -427,19 +427,19 @@ const Navbar = () => {
           {/* Social Toggle Button */}
           <div
             onClick={() => setShowSocials((prev) => !prev)}
-            className="p-[8px] text-[1.2rem] rounded-xl hover:bg-gray-200 hover:text-black cursor-pointer "
+            className="p-[8px] text-[1.2rem] rounded-xl hover:bg-white/30 hover:backdrop-blur-sm text-white hover:text-white cursor-pointer transition-all duration-300"
           >
             <PiShareNetworkDuotone />
           </div>
 
           {/* Social Popup */}
           {showSocials && (
-            <div className="absolute right-0 top-14 bg-white border border-gray-300 rounded-xl p-3 shadow-md z-50 flex flex-col gap-3">
+            <div className="absolute right-0 top-14 bg-white/90 backdrop-blur-md border border-white/30 rounded-xl p-3 shadow-lg z-50 flex flex-col gap-3">
               <button
                 onClick={() =>
                   window.open("https://wa.me/yourphonenumber", "_blank")
                 }
-                className="flex items-center gap-2 hover:text-green-600"
+                className="flex items-center gap-2 hover:text-green-600 transition-colors duration-300"
               >
                 <FaWhatsapp /> WhatsApp
               </button>
@@ -447,7 +447,7 @@ const Navbar = () => {
                 href="https://www.instagram.com/yourusername"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-pink-600"
+                className="flex items-center gap-2 hover:text-pink-600 transition-colors duration-300"
               >
                 <FaInstagram /> Instagram
               </a>
@@ -455,7 +455,7 @@ const Navbar = () => {
                 href="https://www.facebook.com/yourusername"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-blue-600"
+                className="flex items-center gap-2 hover:text-blue-600 transition-colors duration-300"
               >
                 <FaFacebook /> Facebook
               </a>
