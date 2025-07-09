@@ -64,7 +64,7 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="productdetails bg-white min-h-screen">
+    <div className="productdetails bg-white pt-20 min-h-screen">
       <div className="max-w-7xl mx-auto p-4">
         <div className="producttop mb-4">
           <Link to="/search" className="text-black hover:underline">
@@ -132,12 +132,12 @@ const ProductDetails = () => {
             {/* Scent intensity */}
             <div className="mb-4">
               <p className="text-gray-700 mb-2">
-                Scent Intensity Scale: <span className="text-red-500 font-medium">Significant</span>
+                Scent Intensity Scale: <span className="text-gold font-medium">Significant</span>
               </p>
               <div className="flex items-center gap-1">
-                <div className="w-4 h-4 bg-red-500 rounded-full"></div>
-                <div className="w-4 h-4 bg-red-300 rounded-full"></div>
-                <div className="w-4 h-4 bg-gray-200 rounded-full"></div>
+                <div className="w-4 h-4 bg-zinc-700 rounded-full"></div>
+                <div className="w-4 h-4 bg-zinc-400 rounded-full"></div>
+                <div className="w-4 h-4 bg-gray-300 rounded-full"></div>
                 <div className="w-4 h-4 bg-gray-200 rounded-full"></div>
               </div>
             </div>
@@ -149,7 +149,7 @@ const ProductDetails = () => {
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-gray-500 text-lg">Reg: ₹{Math.floor(product.price_inr * 1.2)}</span>
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-red-500 flex items-center">
+                  <div className="text-2xl font-bold text-gold flex items-center">
                     <RiMoneyRupeeCircleFill className="mr-1" />
                     {product.price_inr}
                   </div>
@@ -166,18 +166,18 @@ const ProductDetails = () => {
               </div>
               <div className="flex gap-3">
                 <button
-                  onClick={() => setSelectedSize("50ML")}
+                  onClick={() => setSelectedSize("20ML")}
                   className={`px-6 py-3 rounded-full border-2 transition-all ${
-                    selectedSize === "50ML"
-                      ? "border-red-500 bg-red-50 text-red-600"
+                    selectedSize === "20ML"
+                      ? "border-zinc-500 bg-zinc-50 text-gold"
                       : "border-gray-300 text-gray-700 hover:border-gray-400"
                   }`}
                 >
                   <div className="flex items-center gap-2">
                     <div className={`w-3 h-3 rounded-full ${
-                      selectedSize === "50ML" ? "bg-red-500" : "border border-gray-400"
+                      selectedSize === "20ML" ? "bg-" : "border border-gray-400"
                     }`}></div>
-                    50ML
+                    20ML
                   </div>
                 </button>
                 <button

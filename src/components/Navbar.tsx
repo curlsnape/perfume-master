@@ -29,12 +29,8 @@ import { FaOpencart } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { perfume_Data, perfumeData } from "@/PerfumeData";
-
-// changes made by danish imported icons
 import { FaWhatsapp, FaInstagram, FaFacebook } from "react-icons/fa";
 import { PiShareNetworkDuotone } from "react-icons/pi";
-//
-
 import gsap from "gsap";
 import { MdDelete } from "react-icons/md";
 
@@ -47,68 +43,46 @@ const icons = [
 ];
 
 const Navbar = () => {
+  // Search functionality state
   const [searchTerm, setSearchTerm] = useState("");
   const [focusedIndex, setFocusedIndex] = useState(-1);
-  const [menuOpen, setMenuOpen] = useState(false);
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
-  const [cartItems, setCartItems] = useState<perfume_Data[]>([]);
-
-  const location = useLocation();
-
   const [iconIndex, setIconIndex] = useState(0);
   const iconRef = useRef<HTMLDivElement>(null);
 
-  // changes made by danish
+  // Cart functionality state
+  const [cartCount, setCartCount] = useState(0);
+  const [cartItems, setCartItems] = useState<perfume_Data[]>([]);
   const [showSocials, setShowSocials] = useState(false);
   const socialRef = useRef<HTMLDivElement>(null);
 
+  // Existing state
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+
+  // Cart functions
   const updateCartCount = () => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
     setCartCount(cart.length || 0);
   };
 
-  useEffect(() => {
-    updateCartCount();
-
-    const handleCartUpdate = () => updateCartCount();
-    window.addEventListener("cartUpdated", handleCartUpdate);
-
-    return () => {
-      window.removeEventListener("cartUpdated", handleCartUpdate);
-    };
-  }, []);
-
-  useEffect(() => {
-    const syncCartItems = () => {
-      const cartIds: number[] = JSON.parse(
-        localStorage.getItem("cart") || "[]"
-      );
-      const filteredProducts = perfumeData.filter((product) =>
-        cartIds.includes(product.id)
-      );
-      setCartItems(filteredProducts);
-    };
-
-    // Run initially
-    syncCartItems();
-
-    // Listen for cart updates
-    window.addEventListener("cartUpdated", syncCartItems);
-
-    return () => {
-      window.removeEventListener("cartUpdated", syncCartItems);
-    };
-  }, []);
+  const syncCartItems = () => {
+    const cartIds: number[] = JSON.parse(localStorage.getItem("cart") || "[]");
+    const filteredProducts = perfumeData.filter((product) =>
+      cartIds.includes(product.id)
+    );
+    setCartItems(filteredProducts);
+  };
 
   const handleRemove = (id: number) => {
     const updatedCart = cartItems.filter((item) => item.id !== id);
     setCartItems(updatedCart);
     const newCartIds = updatedCart.map((item) => item.id);
     localStorage.setItem("cart", JSON.stringify(newCartIds));
-    window.dispatchEvent(new Event("cartUpdated")); // notify other components
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
   const generateWhatsAppLink = (items: perfume_Data[]) => {
@@ -129,6 +103,49 @@ const Navbar = () => {
     return `https://wa.me/9833949942?text=${encodedMessage}`;
   };
 
+  // Search functions
+  const filteredData = perfumeData.filter((perfume) =>
+    perfume.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setFocusedIndex((prev) =>
+        prev < filteredData.length - 1 ? prev + 1 : prev
+      );
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setFocusedIndex((prev) => (prev > 0 ? prev - 1 : prev));
+    }
+  };
+
+  // Effects
+  useEffect(() => {
+    updateCartCount();
+    syncCartItems();
+
+    const handleCartUpdate = () => {
+      updateCartCount();
+      syncCartItems();
+    };
+
+    window.addEventListener("cartUpdated", handleCartUpdate);
+
+    return () => {
+      window.removeEventListener("cartUpdated", handleCartUpdate);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > window.innerHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -142,11 +159,9 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Close on route change
   useEffect(() => {
     setShowSocials(false);
   }, [location.pathname]);
-  //
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -166,11 +181,6 @@ const Navbar = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Filtered data based on input
-  const filteredData = perfumeData.filter((perfume) =>
-    perfume.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   useEffect(() => {
     setFocusedIndex(-1);
   }, [searchTerm]);
@@ -184,58 +194,62 @@ const Navbar = () => {
     }
   }, [focusedIndex]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setFocusedIndex((prev) =>
-        prev < filteredData.length - 1 ? prev + 1 : prev
-      );
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setFocusedIndex((prev) => (prev > 0 ? prev - 1 : prev));
-    }
-  };
-
   useEffect(() => {
-    setDialogOpen(false); // Close dialog
-    setSearchTerm(""); // Clear input
-    setFocusedIndex(-1); // Reset focus
-  }, [location.pathname]); // When route changes
+    setDialogOpen(false);
+    setSearchTerm("");
+    setFocusedIndex(-1);
+  }, [location.pathname]);
 
   return (
-    <div className="navbar fixed w-full font-[poppins] z-10">
-      <div className="w-full md:w-[95%] p-3 my-2 mx-auto flex items-center justify-between gap-2 backdrop-blur-md bg-white/5  rounded-full shadow-lg">
-        {/* Desktop menu */}
+    <div className={`navbar fixed w-full font-[poppins] z-30 transition-colors duration-300 ${
+      scrolled ? 'text-black' : 'text-zinc-600'
+    }`}>
+      <div className={`w-full md:w-[95%] p-3 my-2 mx-auto flex items-center justify-between gap-2 backdrop-blur-md rounded-full shadow-lg ${
+        scrolled ? 'bg-white/90' : 'bg-white/5'
+      }`}>
+        {/* Desktop menu - keep existing */}
         <div className="hidden font-light text-sm md:flex gap-5">
-          <img src="/assets/images/black logo.png" alt="" className="w-[4rem] lg:w-[6rem]"/>
+          <img 
+            src={scrolled ? "/assets/images/black logo.png" : "/assets/images/CALYX-WHITE-LOGO.png"} 
+            alt="Calyx Logo" 
+            className="w-[4rem] lg:w-[6rem] transition-opacity duration-300"
+          />
           <Link
-            to=""
-            className="text-zinc-600 metal-3d hover:text-violet-300 transition-all duration-300"
+            to="/"
+            className={`hover:text-zinc-600 transition-all duration-300 ${
+              scrolled ? 'text-zinc-800' : 'text-white'
+            }`}
           >
             Home
           </Link>
           <Link
             to="/search"
-            className="text-zinc-600 metal-3d hover:text-violet-300 transition-all duration-300"
+            className={`hover:text-zinc-600 transition-all duration-300 ${
+              scrolled ? 'text-zinc-800' : 'text-white'
+            }`}
           >
             Products
           </Link>
           <Link
             to="/about"
-            className="text-zinc-600 metal-3d hover:text-violet-300 transition-all duration-300"
+            className={`hover:text-zinc-600 transition-all duration-300 ${
+              scrolled ? 'text-zinc-800' : 'text-white'
+            }`}
           >
             About
           </Link>
         </div>
 
-        {/* Hamburger icon for mobile */}
+        {/* Mobile menu button - keep existing */}
         <div className="md:hidden">
           <button onClick={() => setMenuOpen(!menuOpen)}>
-            <HiOutlineMenuAlt3 className="text-2xl text-wblack" />
+            <HiOutlineMenuAlt3 className={`text-2xl ${
+              scrolled ? 'text-black' : 'text-white'
+            }`} />
           </button>
         </div>
 
-        {/* Mobile slide-in menu */}
+        {/* Mobile slide-in menu - keep existing */}
         <div
           className={`fixed top-0 left-0 h-full bg-white/20 backdrop-blur-md z-50 w-1/2 shadow-lg p-6 transform transition-transform duration-300 ease-in-out ${
             menuOpen ? "translate-x-0" : "-translate-x-full"
@@ -243,31 +257,35 @@ const Navbar = () => {
         >
           <button
             onClick={() => setMenuOpen(false)}
-            className=" text-right w-full font-bold text-wblack"
+            className="text-right w-full font-bold text-wblack"
           >
             ✕
           </button>
           <nav className="flex flex-col justify-between h-full">
             <div className="flex flex-col gap-4">
-              <img src="/assets/images/black logo.png" alt="" className="w-[4rem]"/>
+              <img 
+                src={scrolled ? "/assets/images/CALYX-BLACK-LOGO.png" : "/assets/images/CALYX-WHITE-LOGO.png"} 
+                alt="Calyx Logo"
+                className="w-[4rem] transition-opacity duration-300"
+              />
               <Link
-                to=""
+                to="/"
                 onClick={() => setMenuOpen(false)}
-                className="text-wblack hover:text-violet-300"
+                className="text-zinc-600 hover:text-violet-300"
               >
                 Home
               </Link>
               <Link
                 to="/search"
                 onClick={() => setMenuOpen(false)}
-                className="text-wblack hover:text-violet-300"
+                className="text-zinc-600 hover:text-violet-300"
               >
                 Products
               </Link>
               <Link
                 to="#"
                 onClick={() => setMenuOpen(false)}
-                className="text-wblack hover:text-violet-300"
+                className="text-zinc-600 hover:text-violet-300"
               >
                 About
               </Link>
@@ -278,15 +296,8 @@ const Navbar = () => {
           </nav>
         </div>
 
+        {/* Search functionality */}
         <div className="flex items-center gap-2">
-          <Link to="">
-            <div className="p-0.5 flex text-white font-light items-center justify-center border border-white/20 rounded-xl backdrop-blur-sm bg-white/10">
-              <div ref={iconRef} className="text-[1.7rem] text-wblack p-1">
-                {icons[iconIndex]}
-              </div>
-            </div>
-          </Link>
-
           <Dialog
             open={dialogOpen}
             onOpenChange={(open) => {
@@ -300,7 +311,9 @@ const Navbar = () => {
             <DialogTrigger asChild>
               <Button
                 variant="outline"
-                className="bg-white/30 backdrop-blur-sm border-white/30 py-2 lg:w-80 w-auto rounded-xl hover:bg-white/40 transition-all duration-300"
+                className={`border ${
+                  scrolled ? 'border-black/30 bg-white/80 text-black' : 'border-white/30 bg-white/30 text-white'
+                } py-2 lg:w-80 w-auto rounded-xl hover:bg-white/40 transition-all duration-300`}
                 onClick={() => setDialogOpen(true)}
               >
                 Search Here
@@ -357,12 +370,15 @@ const Navbar = () => {
             </DialogContent>
           </Dialog>
         </div>
+
+        {/* Cart and social functionality */}
         <div className="flex items-center gap-3 relative" ref={socialRef}>
-          {/* Shopping Cart */}
           <Sheet>
             <SheetTrigger>
               <div className="relative">
-                <FaOpencart className="text-[2rem] p-1.5 rounded-xl hover:bg-white/30 hover:backdrop-blur-sm text-white hover:text-white cursor-pointer transition-all duration-300" />
+                <FaOpencart className={`text-[2rem] p-1.5 rounded-xl hover:bg-white/30 ${
+                  scrolled ? 'text-black hover:text-black' : 'text-white hover:text-white'
+                } cursor-pointer transition-all duration-300`} />
                 {cartCount > 0 && (
                   <span className="absolute -top-2 -right-2 text-xs bg-red-600 text-white w-5 h-5 flex items-center justify-center rounded-full">
                     {cartCount}
@@ -424,22 +440,22 @@ const Navbar = () => {
             </SheetContent>
           </Sheet>
 
-          {/* Social Toggle Button */}
           <div
             onClick={() => setShowSocials((prev) => !prev)}
-            className="p-[8px] text-[1.2rem] rounded-xl hover:bg-white/30 hover:backdrop-blur-sm text-white hover:text-white cursor-pointer transition-all duration-300"
+            className={`p-[8px] text-[1.2rem] rounded-xl hover:bg-white/30 ${
+              scrolled ? 'text-black hover:text-black' : 'text-white hover:text-white'
+            } cursor-pointer transition-all duration-300`}
           >
             <PiShareNetworkDuotone />
           </div>
 
-          {/* Social Popup */}
           {showSocials && (
             <div className="absolute right-0 top-14 bg-white/90 backdrop-blur-md border border-white/30 rounded-xl p-3 shadow-lg z-50 flex flex-col gap-3">
               <button
                 onClick={() =>
                   window.open("https://wa.me/yourphonenumber", "_blank")
                 }
-                className="flex items-center gap-2 hover:text-green-600 transition-colors duration-300"
+                className="flex items-center text-zinc-600 hover:text-zinc-700 gap-2 transition-colors duration-300"
               >
                 <FaWhatsapp /> WhatsApp
               </button>
@@ -447,7 +463,7 @@ const Navbar = () => {
                 href="https://www.instagram.com/yourusername"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-pink-600 transition-colors duration-300"
+                className="flex items-center gap-2 text-zinc-600 hover:text-zinc-700 transition-colors duration-300"
               >
                 <FaInstagram /> Instagram
               </a>
@@ -455,7 +471,7 @@ const Navbar = () => {
                 href="https://www.facebook.com/yourusername"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 hover:text-blue-600 transition-colors duration-300"
+                className="flex items-center gap-2 text-zinc-600 hover:text-zinc-700  transition-colors duration-300"
               >
                 <FaFacebook /> Facebook
               </a>

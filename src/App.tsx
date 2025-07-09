@@ -1,28 +1,33 @@
-import {
-  createBrowserRouter,
-  Outlet,
-  RouterProvider,
+import { 
+  createBrowserRouter, 
+  Outlet, 
+  RouterProvider, 
   useLocation,
-} from "react-router-dom";
-import {
-  About,
-  CarDetails,
-  Contact,
-  Home,
-  ProductDetails,
-  SearchPage,
-} from "./pages/pageIndex";
-import { useEffect, useRef } from "react";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+  useNavigationState,
+  useNavigation
+} from "react-router-dom"; 
+import { 
+  About, 
+  CarDetails, 
+  Contact, 
+  Home, 
+  ProductDetails, 
+  SearchPage, 
+} from "./pages/pageIndex"; 
+import { useEffect, useRef, useState } from "react"; 
+import Navbar from "./components/Navbar"; 
+import Footer from "./components/Footer"; 
 import Lenis from "@studio-freight/lenis";
+import Preloader from "./components/Preloader"; // Import your Preloader
 
 function App() {
   const Layout = () => {
     const { pathname } = useLocation();
+    const navigation = useNavigation();
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
+    const lenisRef = useRef(null);
 
-    const lenisRef = useRef<Lenis | null>(null);
-
+    // Initialize Lenis smooth scrolling
     useEffect(() => {
       const lenis = new Lenis({
         duration: 1.2,
@@ -44,18 +49,28 @@ function App() {
       };
     }, []);
 
+    // Scroll to top on route change and handle initial load
     useEffect(() => {
       window.scrollTo(0, 0);
+      
+      if (isInitialLoad) {
+        const timer = setTimeout(() => {
+          setIsInitialLoad(false);
+        }, 2000); // Match this duration with your Preloader's animation time
+        return () => clearTimeout(timer);
+      }
     }, [pathname]);
 
+    // Show preloader during initial load or route transitions
+    const showPreloader = isInitialLoad || navigation.state === "loading";
+
     return (
-      <div className="md:pb-0 pb-8">
+      <>
+        {showPreloader && <Preloader />}
         <Navbar />
-        <div className="">
-          <Outlet />
-        </div>
+        <Outlet />
         <Footer />
-      </div>
+      </>
     );
   };
 
@@ -82,13 +97,13 @@ function App() {
         },
         {
           path: "/search/:productid",
-          element: <ProductDetails  />
+          element: <ProductDetails />
         }
-      
       ],
     },
   ]);
-  return <RouterProvider router={router}></RouterProvider>;
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;

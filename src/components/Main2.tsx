@@ -95,7 +95,7 @@ function Main2() {
         className="lefthalf relative flex items-end justify-center bg-[#000] w-full lg:w-[25%] h-full lg:h-full"
         variants={slideInBottom}
       >
-        <div className="divleft w-44 rounded-t-full mb-10">
+        {/* <div className="divleft w-44 rounded-t-full mb-10">
           <motion.img
             className="h-[30vh] w-full rounded-t-full object-cover"
             src="/assets/images/perfume-right.jpg"
@@ -122,7 +122,7 @@ function Main2() {
               Lorem ipsum dolor <br /> sit amet consectetur.
             </motion.h4>
           </motion.div>
-        </div>
+        </div> */}
       </motion.div>
 
       {/* Middle Half */}
@@ -176,8 +176,8 @@ function Main2() {
         className="righthalf relative flex items-start justify-center bg-[#000] w-full lg:w-[25%] h-full lg:h-full order-3"
         variants={slideInTop}
       >
-        <div className="divright w-44 h-full mt-32 overflow-hidden">
-          {/* Text block first with rounded top */}
+        {/* <div className="divright w-44 h-full mt-32 overflow-hidden">
+          
           <motion.div
             className="border rounded-t-full p-6 text-sm text-center border-zinc-800 w-full"
             variants={capsuleTextVariants}
@@ -198,7 +198,7 @@ function Main2() {
             </motion.h4>
           </motion.div>
 
-          {/* Image block with rounded bottom */}
+         
           <motion.img
             className="h-[30vh] w-full mt-2 rounded-b-full object-cover"
             src="/assets/images/Villian.png"
@@ -206,7 +206,7 @@ function Main2() {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.4 }}
           />
-        </div>
+        </div> */}
       </motion.div>
 
       <style jsx>{`
