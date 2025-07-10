@@ -147,7 +147,7 @@ function Main2() {
         </motion.h2>
 
         <motion.div
-          className="img w-[60%] sm:w-[50%] md:w-[45%] lg:w-[90%] mt-6 lg:mt-10 h-[30vh] lg:h-[60vh] relative"
+          className="img w-[70%] sm:w-[90%] md:w-[85%] lg:w-[90%] mt-6 lg:mt-10 h-[30vh] lg:h-[60vh] relative"
           variants={scaleIn}
         >
           {/* Background blend overlay */}
