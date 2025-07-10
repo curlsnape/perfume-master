@@ -131,7 +131,7 @@ function Main2() {
         variants={fadeInUp}
       >
         <motion.h2
-          className="text-3xl sm:text-4xl mt-16 md:text-5xl lg:text-7xl text-center font-[Doren] font-medium drop-shadow-[1px_1px_1px_rgba(0,0,0,0.5)] metal-3d"
+          className="text-3xl sm:text-4xl mt-20 md:text-5xl lg:text-7xl text-center font-[Doren] font-medium drop-shadow-[1px_1px_1px_rgba(0,0,0,0.5)] metal-3d"
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1.2, delay: 0.2 }}
@@ -147,7 +147,7 @@ function Main2() {
         </motion.h2>
 
         <motion.div
-          className="img w-[60%] sm:w-[50%] md:w-[45%] lg:w-[60%] mt-6 lg:mt-10 h-[30vh] lg:h-[60vh] relative"
+          className="img w-[60%] sm:w-[50%] md:w-[45%] lg:w-[90%] mt-6 lg:mt-10 h-[30vh] lg:h-[60vh] relative"
           variants={scaleIn}
         >
           {/* Background blend overlay */}
@@ -157,8 +157,8 @@ function Main2() {
           <div className="absolute inset-0 bg-[#000000] opacity-20 rounded-lg mix-blend-multiply"></div>
 
           <motion.img
-            className="h-full w-full object-cover relative z-10 filter brightness-110 contrast-110"
-            src="/assets/images/perfume landing.png"
+            className="h-full w-full  relative z-10 filter brightness-110 contrast-110"
+            src="/assets/images/perfume landing2.png"
             alt=""
             style={{
               filter: "brightness(1.1) contrast(1.1) saturate(1.8)",
