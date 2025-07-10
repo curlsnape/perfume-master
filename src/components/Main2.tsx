@@ -157,7 +157,7 @@ function Main2() {
           <div className="absolute inset-0 bg-[#000000] opacity-20 rounded-lg mix-blend-multiply"></div>
 
           <motion.img
-            className="h-full w-full  relative z-10 filter brightness-110 contrast-110"
+            className="h-full w-full object-cover relative z-10 filter brightness-110 contrast-110"
             src="/assets/images/perfume landing2.png"
             alt=""
             style={{
